@@ -6,30 +6,37 @@ namespace Employee_Wage_Problem
     {
         static void Main(string[] args)
         {
-            int isPresent = Attendance();
-            if (isPresent == 0)
-                Console.WriteLine("Employee is Absent!");
+            int isPresent = 0;
+            isPresent = Attendance();
+            if(isPresent == 0)
+                Console.WriteLine("Employee is Absent");
+            else if(isPresent == 1)
+                Console.WriteLine("Employee is Present Half Time");
             else
-                Console.WriteLine("Employee is Present!");
+                Console.WriteLine("Employee is Present Full Time");
             int dailyEmployeeWage = 0;
-            if (isPresent == 1)
+            if (isPresent != 0)
             {
-                dailyEmployeeWage = DailyEmployeeWage();
+                dailyEmployeeWage = DailyEmployeeWage(isPresent);
             }
-            Console.WriteLine("Daily Employee Wage : {0}", dailyEmployeeWage);
+            Console.WriteLine("Daily Wage of Employee is: {0}", dailyEmployeeWage);
         }
-
+        
         static int Attendance()
         {
             Random randObj = new Random();
-            return randObj.Next(0, 2);
+            return randObj.Next(0, 3);
         }
-
-        static int DailyEmployeeWage()
+        
+        static int DailyEmployeeWage(int halfOrFull)
         {
             int fullDayHour = 8;
+            int halfDayHour = 4;
             int perHourWage = 20;
-            return fullDayHour * perHourWage;
+            if (halfOrFull == 1)
+                return halfDayHour * perHourWage;
+            else
+                return fullDayHour * perHourWage;
         }
     }
 }
