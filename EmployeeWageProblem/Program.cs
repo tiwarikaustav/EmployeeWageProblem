@@ -7,26 +7,32 @@ namespace Employee_Wage_Problem
         static void Main(string[] args)
         {
             int isPresent = 0;
-            isPresent = Attendance();
             int dailyEmployeeWage = 0;
-            switch (isPresent)
-            {
-                case 0:
-                    Console.WriteLine("Employee is Absent");
-                    break;
-                case 1:
-                    Console.WriteLine("Employee is Present but Half Day");
-                    dailyEmployeeWage = DailyEmployeeWage(isPresent);
-                    break;
-                case 2:
-                    Console.WriteLine("Employee is Present Full Day");
-                    dailyEmployeeWage = DailyEmployeeWage(isPresent);
-                    break;
-                default:
-                    break;
+            int wagePerMonth = 0;
+            int daysPerMonth = 20;
+            for(int i=0; i<daysPerMonth; i++){
+                isPresent = Attendance();
+                switch (isPresent)
+                {
+                    case 0:
+                        Console.WriteLine("Employee is Absent");
+                        break;
+                    case 1:
+                        Console.WriteLine("Employee is Present but Half Day");
+                        dailyEmployeeWage = DailyEmployeeWage(isPresent);
+                        wagePerMonth += dailyEmployeeWage;
+                        break;
+                    case 2:
+                        Console.WriteLine("Employee is Present Full Day");
+                        dailyEmployeeWage = DailyEmployeeWage(isPresent);
+                        wagePerMonth += dailyEmployeeWage;
+                        break;
+                    default:
+                        daysPerMonth--;
+                        break;
+                }
             }
-
-            Console.WriteLine("Daily Wage of Employee is: {0}", dailyEmployeeWage);
+            Console.WriteLine("Monthly Wage of Employee is: {0}", wagePerMonth);
         }
 
         /// <summary>
