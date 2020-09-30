@@ -6,33 +6,42 @@ namespace Employee_Wage_Problem
     {
         static void Main(string[] args)
         {
+            
             int isPresent = 0;
             int dailyEmployeeWage = 0;
             int wagePerMonth = 0;
             int daysPerMonth = 20;
-            for(int i=0; i<daysPerMonth; i++){
-                isPresent = Attendance();
+            int totalWorkingHours = 0;
+            int WORKING_HOUR_LIMIT = 100;
+            int count = 0;
+            while(count < daysPerMonth && totalWorkingHours <= WORKING_HOUR_LIMIT){
+                isPresent = Attendance();                   
                 switch (isPresent)
                 {
                     case 0:
                         Console.WriteLine("Employee is Absent");
+                        count++;
                         break;
                     case 1:
                         Console.WriteLine("Employee is Present but Half Day");
+                        totalWorkingHours += 4;
+                        count++;
                         dailyEmployeeWage = DailyEmployeeWage(isPresent);
                         wagePerMonth += dailyEmployeeWage;
                         break;
                     case 2:
                         Console.WriteLine("Employee is Present Full Day");
+                        totalWorkingHours += 8;
+                        count++;
                         dailyEmployeeWage = DailyEmployeeWage(isPresent);
                         wagePerMonth += dailyEmployeeWage;
                         break;
                     default:
-                        daysPerMonth--;
                         break;
                 }
             }
             Console.WriteLine("Monthly Wage of Employee is: {0}", wagePerMonth);
+            Console.WriteLine("Total Working Hours of Employee is: {0}", totalWorkingHours);
         }
 
         /// <summary>
@@ -56,8 +65,10 @@ namespace Employee_Wage_Problem
             int perHourWage = 20;
             if (halfOrFull == 1)
                 return halfDayHour * perHourWage;
-            else
+            else if (halfOrFull == 2)
                 return fullDayHour * perHourWage;
+            else
+                return 0;
         }
     }
 }
